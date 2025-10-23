@@ -46,7 +46,7 @@ app.put('/messages/thumbUp', (req, res) => {
       }
     }, {
       sort: { _id: -1 },
-      upsert: true
+      upsert: true // creates something if it doesn't exist
     }, (err, result) => {
       if (err) return res.send(err)
       res.send(result)
@@ -57,7 +57,7 @@ app.put('/messages/thumbDown', (req, res) => {
   db.collection('messages')
     .findOneAndUpdate({ name: req.body.name, msg: req.body.msg }, {
       $inc: {
-        thumbDown: 1
+        thumbUp: - 1
       }
     }, {
       sort: { _id: -1 },
